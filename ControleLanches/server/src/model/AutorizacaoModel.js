@@ -12,7 +12,7 @@ const AutorizacaoSchema = new mongoose.Schema({
     qtdeLanches: {
         type: Number,
         required: true,
-        max: 3, // Garantir que o máximo de lanches seja 3
+        max: 3,
     },
 });
 

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, TextInput, Button, Alert, StyleSheet, FlatList, TouchableOpacity, Image } from 'react-native';
-import { Picker } from '@react-native-picker/picker'; // Importe o Picker corretamente
+import { Picker } from '@react-native-picker/picker'; 
 import axios from 'axios';
 import { Ionicons } from '@expo/vector-icons';
 
@@ -10,29 +10,26 @@ const AutorizacaoLancheScreen = () => {
     const [data, setData] = useState('');
     const [alunoSelecionado, setAlunoSelecionado] = useState(null);
     const [qtdeLanches, setQtdeLanches] = useState('');
-    const [autorizacaoId, setAutorizacaoId] = useState(null); // ID para edição
+    const [autorizacaoId, setAutorizacaoId] = useState(null);
 
-    // Função para buscar alunos do backend
     const fetchAlunos = async () => {
         try {
-            const response = await axios.get('http://192.168.15.144:3000/aluno/filter/getAll'); // Substitua pelo IP correto
+            const response = await axios.get('http://192.168.15.144:3000/aluno/filter/getAll'); 
             setAlunos(response.data);
         } catch (error) {
             console.error('Erro ao buscar alunos:', error);
         }
     };
 
-    // Função para buscar autorizações de lanche
     const fetchAutorizacoes = async () => {
         try {
-            const response = await axios.get('http://192.168.15.144:3000/lanche'); // Substitua pelo IP correto
+            const response = await axios.get('http://192.168.15.144:3000/lanche'); 
             setAutorizacoes(response.data);
         } catch (error) {
             console.error('Erro ao buscar autorizações:', error);
         }
     };
 
-    // Função para salvar ou atualizar uma autorização
     const handleSalvar = async () => {
         if (!data || !alunoSelecionado || !qtdeLanches) {
             Alert.alert('Erro', 'Por favor, preencha todos os campos.');
@@ -45,7 +42,6 @@ const AutorizacaoLancheScreen = () => {
         }
 
         try {
-            // Verifica se já existe autorização para o mesmo aluno na mesma data
             const existeAutorizacao = autorizacoes.some(
                 (aut) => aut.data === data && aut.alunoId === alunoSelecionado.id && aut.id !== autorizacaoId
             );
@@ -56,7 +52,6 @@ const AutorizacaoLancheScreen = () => {
             }
 
             if (autorizacaoId) {
-                // Atualizar autorização existente
                 await axios.put(`http://192.168.15.144:3000/lanche/${autorizacaoId}`, {
                     data,
                     alunoId: alunoSelecionado.id,
@@ -64,7 +59,6 @@ const AutorizacaoLancheScreen = () => {
                 });
                 Alert.alert('Sucesso', 'Autorização atualizada com sucesso!');
             } else {
-                // Criar nova autorização
                 await axios.post('http://192.168.15.144:3000/lanche', {
                     data,
                     alunoId: alunoSelecionado.id,
@@ -76,18 +70,17 @@ const AutorizacaoLancheScreen = () => {
             setData('');
             setAlunoSelecionado(null);
             setQtdeLanches('');
-            setAutorizacaoId(null); // Limpa o ID de edição
-            fetchAutorizacoes(); // Atualiza a lista
+            setAutorizacaoId(null); 
+            fetchAutorizacoes(); 
         } catch (error) {
             console.error('Erro ao salvar autorização:', error);
             Alert.alert('Erro', 'Não foi possível salvar a autorização.');
         }
     };
 
-    // Função para excluir uma autorização
     const handleExcluir = async (id) => {
         try {
-            await axios.delete(`http://192.168.15.144:3000/lanche/${id}`); // Substitua pelo IP correto
+            await axios.delete(`http://192.168.15.144:3000/lanche/${id}`); 
             Alert.alert('Sucesso', 'Autorização excluída com sucesso!');
             fetchAutorizacoes();
         } catch (error) {
@@ -96,7 +89,6 @@ const AutorizacaoLancheScreen = () => {
         }
     };
 
-    // Função para carregar dados para edição
     const handleEditar = (item) => {
         setData(item.data);
         setAlunoSelecionado(alunos.find((aluno) => aluno.id === item.alunoId));

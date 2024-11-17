@@ -1,7 +1,6 @@
 const AlunoModel = require('../model/AlunoModel');
 const { isFuture } = require('date-fns');
 
-//const AlunoValidation = async(req, res, next)
 async function AlunoValidation(req, res, next) {
     console.log(req.body);
     const { id, nome, ra, foto } = req.body;

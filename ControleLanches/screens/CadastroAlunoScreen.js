@@ -52,7 +52,7 @@ const CadastroAlunoScreen = () => {
             setRa('');
             setNome('');
             setFoto('');
-            fetchAlunos(); // Atualizar a lista após cadastro/edição
+            fetchAlunos(); 
         } catch (error) {
             console.error('Erro ao cadastrar/atualizar aluno:', error);
             Alert.alert('Erro', 'Não foi possível cadastrar/atualizar o aluno.');
@@ -61,9 +61,9 @@ const CadastroAlunoScreen = () => {
 
     const handleDelete = async (id) => {
         try {
-            await axios.delete(`http://192.168.15.144:3000/aluno/${id}`); // Substitua pelo IP correto
+            await axios.delete(`http://192.168.15.144:3000/aluno/${id}`);
             Alert.alert('Sucesso', 'Aluno excluído com sucesso!');
-            setAlunos((prevAlunos) => prevAlunos.filter((aluno) => aluno.id !== id)); // Remove o aluno localmente
+            setAlunos((prevAlunos) => prevAlunos.filter((aluno) => aluno.id !== id)); 
         } catch (error) {
             console.error('Erro ao excluir aluno:', error);
             Alert.alert('Erro', 'Não foi possível excluir o aluno.');
@@ -71,17 +71,16 @@ const CadastroAlunoScreen = () => {
     };
 
     const handleEdit = (item) => {
-        setId(item.id); // Define o ID do aluno para edição
+        setId(item.id); 
         setRa(item.ra);
         setNome(item.nome);
         setFoto(item.foto);
         Alert.alert('Modo de edição ativado', 'Altere os campos e clique em "Cadastrar" para atualizar.');
     };
 
-    // Carrega os alunos do AsyncStorage ao entrar na tela
     useEffect(() => {
         loadAlunosFromStorage();
-        fetchAlunos(); // Buscar alunos do backend
+        fetchAlunos();
     }, []);
 
     return (
@@ -109,7 +108,7 @@ const CadastroAlunoScreen = () => {
             <Text style={styles.subTitle}>Últimos Alunos Cadastrados:</Text>
             <FlatList
                 data={alunos}
-                keyExtractor={(item) => item.id || item.ra} // Ajuste para evitar conflitos
+                keyExtractor={(item) => item.id || item.ra} 
                 renderItem={({ item }) => (
                     <View style={styles.alunoContainer}>
                         <View style={styles.alunoInfo}>

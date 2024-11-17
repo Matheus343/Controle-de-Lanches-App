@@ -1,6 +1,5 @@
 const AutorizacaoModel = require('../models/AutorizacaoModel');
 
-// Busca todas as autorizações
 exports.getAll = async (req, res) => {
     try {
         const autorizacoes = await AutorizacaoModel.find();
@@ -10,11 +9,9 @@ exports.getAll = async (req, res) => {
     }
 };
 
-// Cria uma nova autorização
 exports.create = async (req, res) => {
     const { data, alunoId, qtdeLanches } = req.body;
 
-    // Valida se os campos estão preenchidos
     if (!data || !alunoId || !qtdeLanches) {
         return res.status(400).json({ error: 'Preencha todos os campos' });
     }
@@ -24,7 +21,6 @@ exports.create = async (req, res) => {
     }
 
     try {
-        // Evita duplicados (mesmo aluno na mesma data)
         const existeAutorizacao = await AutorizacaoModel.findOne({ data, alunoId });
         if (existeAutorizacao) {
             return res.status(400).json({ error: 'Já existe uma autorização para este aluno nesta data' });
@@ -37,7 +33,6 @@ exports.create = async (req, res) => {
     }
 };
 
-// Atualiza uma autorização existente
 exports.update = async (req, res) => {
     const { id } = req.params;
     const { data, alunoId, qtdeLanches } = req.body;
@@ -54,7 +49,7 @@ exports.update = async (req, res) => {
         const autorizacao = await AutorizacaoModel.findByIdAndUpdate(
             id,
             { data, alunoId, qtdeLanches },
-            { new: true } // Retorna o documento atualizado
+            { new: true } 
         );
         if (!autorizacao) {
             return res.status(404).json({ error: 'Autorização não encontrada' });
@@ -65,7 +60,6 @@ exports.update = async (req, res) => {
     }
 };
 
-// Exclui uma autorização
 exports.delete = async (req, res) => {
     const { id } = req.params;
 

@@ -1,7 +1,7 @@
 const AlunoModel = require('../model/AlunoModel');
 
 class AlunoController {
-    async create(req, res) {  // req = request  e res = response
+    async create(req, res) {
         const aluno = new AlunoModel(req.body);
         await aluno
             .save()
