@@ -2,7 +2,7 @@ const mongoose = require('../config/database');
 
 const AlunoSchema = new mongoose.Schema(
     {
-        id: { type: Number, required: true },
+        id: { type: String, required: true },
         nome: { type: String, required: true },
         ra: { type: Number, required: true },
         foto: { type: String, required: true },
