@@ -4,10 +4,16 @@ import { View, Text, Button, StyleSheet } from 'react-native';
 const HomeScreen = ({ navigation }) => {
     return (
         <View style={styles.container}>
-            <Text style={styles.title}>Bem-vindo ao Gerenciador de Lanches!</Text>
+            <Text style={styles.title}>Bem-vindo ao Sistema de Gestão</Text>
             <Button
-                title="Ir para Cadastro de Aluno"
+                title="Cadastro de Alunos"
                 onPress={() => navigation.navigate('CadastroAluno')}
+                style={styles.button1}
+            />
+            <Button
+                title="Autorizar Lanches"
+                onPress={() => navigation.navigate('AutorizacaoLanche')}
+                style={styles.button2}
             />
         </View>
     );
@@ -18,13 +24,20 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: '#f0f0f0',
+        backgroundColor: '#fff',
     },
     title: {
         fontSize: 24,
         fontWeight: 'bold',
-        marginBottom: 20,
-        color: '#333',
+        marginBottom: 40,
+    },
+    button1: {
+        marginBottom: 60,
+        marginTop: 67,
+    },
+    button2: {
+        marginBottom: 40,
+        marginTop: 80,
     },
 });
 

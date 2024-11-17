@@ -1,8 +1,9 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import HomeScreen from './screens/HomeScreen'; // Tela Home
-import CadastroAlunoScreen from './screens/CadastroAlunoScreen'; // Tela de Cadastro
+import HomeScreen from './screens/HomeScreen';
+import CadastroAlunoScreen from './screens/CadastroAlunoScreen';
+import AutorizacaoLancheScreen from './screens/AutorizacaoLancheScreen'; // Importe a nova tela
 
 const Stack = createNativeStackNavigator();
 
@@ -19,6 +20,11 @@ export default function App() {
                     name="CadastroAluno"
                     component={CadastroAlunoScreen}
                     options={{ title: 'Cadastro de Aluno' }}
+                />
+                <Stack.Screen
+                    name="AutorizacaoLanche"
+                    component={AutorizacaoLancheScreen}
+                    options={{ title: 'Autorizar Lanches' }}
                 />
             </Stack.Navigator>
         </NavigationContainer>

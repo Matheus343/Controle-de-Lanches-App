@@ -16,6 +16,7 @@ server.get('/teste', (req, res) => {
 const AlunoRoutes = require('./routes/AlunoRoutes');
 server.use('/aluno', AlunoRoutes);
 
+
 // Inicializar o Servidor
 const PORT = 3000;
 server.listen(PORT, () => {

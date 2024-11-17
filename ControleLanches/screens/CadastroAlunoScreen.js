@@ -5,24 +5,22 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Ionicons } from '@expo/vector-icons';
 
 const CadastroAlunoScreen = () => {
-    const [id, setId] = useState(null); // Adicionado para armazenar o ID do aluno ao editar
+    const [id, setId] = useState(null); 
     const [ra, setRa] = useState('');
     const [nome, setNome] = useState('');
     const [foto, setFoto] = useState('');
     const [alunos, setAlunos] = useState([]);
 
-    // Função para buscar os últimos alunos do backend
     const fetchAlunos = async () => {
         try {
-            const response = await axios.get('http://192.168.15.144:3000/aluno/filter/getAll'); // Substitua pelo IP correto
-            setAlunos(response.data); // Define os últimos alunos recebidos
-            await AsyncStorage.setItem('alunos', JSON.stringify(response.data)); // Salva no AsyncStorage
+            const response = await axios.get('http://192.168.15.144:3000/aluno/filter/getAll');
+            setAlunos(response.data); 
+            await AsyncStorage.setItem('alunos', JSON.stringify(response.data)); 
         } catch (error) {
             console.error('Erro ao buscar alunos:', error);
         }
     };
 
-    // Função para carregar os alunos salvos no AsyncStorage
     const loadAlunosFromStorage = async () => {
         try {
             const storedAlunos = await AsyncStorage.getItem('alunos');
@@ -42,14 +40,12 @@ const CadastroAlunoScreen = () => {
 
         try {
             if (id) {
-                // Atualizar aluno existente
-                await axios.put(`http://192.168.15.144:3000/aluno/${id}`, { ra, nome, foto }); // Substitua pelo IP correto
+                await axios.put(`http://192.168.15.144:3000/aluno/${id}`, { ra, nome, foto }); 
                 Alert.alert('Sucesso', 'Aluno atualizado com sucesso!');
-                setId(null); // Limpa o ID após a atualização
+                setId(null); 
             } else {
-                // Criar novo aluno
-                const newId = Math.random().toString(36).substr(2, 9); // Gerar ID aleatório
-                await axios.post('http://192.168.15.144:3000/aluno', { id: newId, ra, nome, foto }); // Substitua pelo IP correto
+                const newId = Math.random().toString(36).substr(2, 9); 
+                await axios.post('http://192.168.15.144:3000/aluno', { id: newId, ra, nome, foto }); 
                 Alert.alert('Sucesso', 'Aluno cadastrado com sucesso!');
             }
 
